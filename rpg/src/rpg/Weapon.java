@@ -5,9 +5,10 @@ public class Weapon {
 	private int damagePoints;
 	
 	
-	public Weapon(String name, int damagePoints, String ascci) {
+	public Weapon(String name, int damagePoints, String ascii) {
 		this.name = name;
 		this.damagePoints = damagePoints;
+		this.ascii = ascii;
 		
 	}
 
