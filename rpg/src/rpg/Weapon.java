@@ -1,15 +1,20 @@
 package rpg;
 
 public class Weapon {
-	private String name, ascii;
+	private String name;
 	private int damagePoints;
 	
-	
-	public Weapon(String name, int damagePoints, String ascii) {
+	public Weapon(String name, int damagePoints) {
 		this.name = name;
 		this.damagePoints = damagePoints;
-		this.ascii = ascii;
 		
+	}
+	
+	public String getWeaponName() {
+		return this.name;
+	}
+	public int getWeaponDamagePoints() {
+		return this.damagePoints;
 	}
 
 }

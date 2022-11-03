@@ -79,6 +79,7 @@ public class GameLoop {
 		Story.printIntro();
 		
 		player = new Player(name);
+		shop();
 		
 		Story.printFirstActIntro();
 		//isRunning
@@ -89,12 +90,10 @@ public class GameLoop {
 	}
 	
 	public static void checkAct() {
-		if(player.getCharacterXp() >= 10 && act == 1 ) {
+		if(player.getCharacterXp() >= 5 && act == 1 ) {
 			act = 2;
 			place = 1;
 			Story.printFirstActOutro();
-			
-			player.chooseTrait();
 			
 			Story.printSecondActIntro();
 			enemies[0] = "Mercenaire";
@@ -109,12 +108,10 @@ public class GameLoop {
 		    encounters[3] = "Repos";
 		    encounters[4] = "Magasin";
 			
-		}else if(player.getCharacterXp() >= 50 && act ==2 ) {
+		}else if(player.getCharacterXp() >= 10 && act == 2 ) {
 			act = 3;
 			place = 2;
 			Story.printSecondActOutro();
-			
-			player.chooseTrait();
 			
 			Story.printThirdActIntro();
 			
@@ -129,18 +126,19 @@ public class GameLoop {
 		    encounters[2] = "Combat";
 		    encounters[3] = "Repos";
 		    encounters[4] = "Magasin";
+		    player.chooseTrait();
 		    player.setCharacterHp(player.getCharacterMaxHp());
 			
-		}else if(player.getCharacterXp() >= 100 && act == 3) {
+		}else if(player.getCharacterXp() >= 20 && act == 3) {
 			act = 4;
-			place = 2;
+			place = 3;
 			Story.printThirdActOutro();
 			
-			player.chooseTrait();
-			
 			Story.printFourthActIntro();
-			
+			player.chooseTrait();
 		    player.setCharacterHp(player.getCharacterMaxHp());
+		    
+		    finalBattle();
 			
 		}
 	}
@@ -151,17 +149,37 @@ public class GameLoop {
 			randomBattle();
 			
 		}else if(encounters[encounter].equals("Repos")){
-			//repos
+			takeRest();
 			
 		}else {
-			//shop
+			shop();
 		}
 	}
 	public static void continueJourney() {
 		checkAct();
-		
 		if(act != 4) {
-			randomEncounter();
+			GameLoop.clearConsole();
+			GameLoop.printHeading("dans quelle direction voulez-vous aller ?");
+			System.out.println("(1) Avant");
+			System.out.println("(2) Arière");
+			System.out.println("(3) Gauche");
+			System.out.println("(4) Droite");
+			int input = GameLoop.readInt("-> ", 4);
+			GameLoop.clearConsole();
+			if(input == 1) {
+				randomEncounter();
+				
+			}else if(input == 2) {
+				randomEncounter();
+				
+			}else if(input == 3) {
+				randomEncounter();
+				
+			}else if(input == 4) {
+				randomEncounter();
+				
+			}
+			
 		}
 		
 	}
@@ -174,7 +192,7 @@ public class GameLoop {
 		System.out.println("XP: " + player.getCharacterXp() + "\tGold:" + player.getGold());
 		printSeparator(20);
 		
-		System.out.println("# de potions:" + " " + player.getPots());
+		System.out.println("nombre de potions:" + " " + player.getPots());
 		printSeparator(20);
 		
 		if(player.getNumAttackUpgrades() > 0) {
@@ -184,15 +202,24 @@ public class GameLoop {
 		if(player.getNumDefUpgrades() > 0) {
 			System.out.println("capacités deffensive " + player.getDefUpgrades()[player.getNumDefUpgrades() - 1]);
 		}
+		printSeparator(30);
+		printHeading("Armes");
+		printSeparator(30);
+	    player.renderWeaponBought();
 		toContinue();
 	}
 	
+	//magasin
 	public static void shop() {
 		clearConsole();
 		printHeading("vous rencontrez un mysterieux marchand");
 		int price = (int) (Math.random()* (10 + player.getPots() * 3) + 10 + player.getPots());
+		int price2 = (int) (Math.random()*10);
+		int numWeapon = (int) (Math.random()*3);
 		System.out.println("- Potion: " + " " + price + " " + "pièces d'or");
 		printSeparator(20);
+		System.out.println("- Arme: " + player.getWeapon(numWeapon) + " " + price2 + " " + "pièces d'or");
+		
 		
 		System.out.println("Voulez-vous acheter une potion ?\n(1) Oui\n(2) Non.");
 		int input = readInt("-> ", 2);
@@ -208,9 +235,24 @@ public class GameLoop {
 				toContinue();
 			}
 		}
+		System.out.println("Voulez-vous acheter l'arme ?\n(1) Oui\n(2) Non.");
+		int input2 = readInt("-> ", 2);
+		
+		if(input2 == 1) {
+			clearConsole();
+			if(player.getGold() >= price2) {
+				printHeading("Vous avez acheté l'arme" + " " + player.getWeapon(numWeapon) + " " + "pour" + " " + price2 + " " + "pièces d'or" );
+				player.buyWeapon(player.getWeapon(numWeapon));
+				player.buy(price2);
+			}else {
+				printHeading("Vous n'avez pas assez de pièces d'or");
+				toContinue();
+			}
+			toContinue();
+		}
 	}
-	
-	public static void takeRet() {
+	//repos
+	public static void takeRest() {
 		clearConsole();
 		if(player.getRestsLeft() >= 1) {
 			printHeading("voulez-vous vous reposer ? (" + player.getRestsLeft() + " " + "repos disponible).");
@@ -237,7 +279,7 @@ public class GameLoop {
 			}
 		}
 	}
-	
+	//combat aléatoire
 	public static void randomBattle() {
 		clearConsole();
 		printHeading("vous croisez un ennemie");
@@ -298,7 +340,7 @@ public class GameLoop {
 				clearConsole();
 				if(player.getPots() > 0 && player.getCharacterHp() < player.getCharacterMaxHp()) {
 					printHeading("Vous voulez boire une potion ? (" + player.getPots() + " restant).");
-					System.out.println("(1) Oui\n(2) No, plus tard");
+					System.out.println("(1) Oui\n(2) Non, plus tard");
 					input = readInt("-> ", 2);
 					if(input == 1) {
 						player.setCharacterHp(player.getCharacterMaxHp());
@@ -318,6 +360,7 @@ public class GameLoop {
 					//chance 45%
 					if(Math.random()*10 + 1 <= 4.5) {
 						printHeading("Vous vous êtes enfuis ");
+						toContinue();
 						break;
 					}else {
 						printHeading("vous n'avez pas reussi à vous enfuir ");
@@ -346,6 +389,11 @@ public class GameLoop {
 		System.out.println("(1) quitter le jeu");
 	}
 	
+	public static void finalBattle() {
+		battle(new Enemy("THE NAMELESS KING", 250));
+		Story.printEnd(player);
+		isRunning = false;
+	}
 	public static void playerDied() {
 		clearConsole();
 		printHeading("Vous avez péri");
