@@ -8,7 +8,7 @@ public class Player extends Character {
 	private int gold, restsLeft, pots;
 	private String chosenClass;
 	
-	private Weapon[] playerWeapons = new Weapon[5];
+	private Weapon[] playerWeapons = new Weapon[6];
 	
     private ArrayList<Weapon> playerWeaponsBought = new ArrayList<Weapon>();
     
@@ -30,10 +30,12 @@ public class Player extends Character {
 		this.restsLeft = 1;
 		this.pots = 0;
 		this.chosenClass = "";
-		this.playerWeapons[0] = new Weapon("épée du hero", 5);
-		this.playerWeapons[1] = new Weapon("épée du hero", 5);
-		this.playerWeapons[2] = new Weapon("hallebarde", 7);
-		this.playerWeapons[3] = new Weapon("lance sacrée", 9);
+		this.playerWeapons[0] = new Weapon("épée du hero", 1);
+		this.playerWeapons[1] = new Weapon("épée du hero", 2);
+		this.playerWeapons[2] = new Weapon("hallebarde", 3);
+		this.playerWeapons[3] = new Weapon("hallebarde", 3);
+		this.playerWeapons[4] = new Weapon("lance sacrée", 4);
+		this.playerWeapons[5] = new Weapon("lance sacrée", 4);
 		chooseTrait();
 		chooseClass();
 		
@@ -115,6 +117,8 @@ public class Player extends Character {
 	}
 	public void buyWeapon(Weapon weaponBought) {
 		this.playerWeaponsBought.add(weaponBought);
+		this.numAttackUpgrades += weaponBought.getWeaponDamagePoints();
+		
 	}
 	
 	public Weapon getWeapon(int numWeapon) {
@@ -126,13 +130,6 @@ public class Player extends Character {
 	       	 System.out.println (elem.getWeaponName());
 	       	 
 	       }
-		
-	}
-	
-	public void equipWeapon(int indexOfWeapon) {
-		
-			this.numAttackUpgrades += this.playerWeaponsBought.get(indexOfWeapon).getWeaponDamagePoints();
-			
 		
 	}
 	

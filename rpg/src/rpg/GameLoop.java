@@ -46,7 +46,7 @@ public class GameLoop {
 	}
 	
 	public static void toContinue() {
-		System.out.println("\ntaper \"commencer\" pour continuer...");
+		System.out.println("\ntaper \"go\" pour continuer...");
 		scanner.next();
 	}
 	
@@ -346,7 +346,7 @@ public class GameLoop {
 				printHeading("Vous avez acheté l'arme" + " " + player.getWeapon(numWeapon).getWeaponName() + " " + "pour" + " " + price2 + " " + "pièces d'or" );
 				player.buyWeapon(player.getWeapon(numWeapon));
 				player.buy(price2);
-				player.equipWeapon(numWeapon);
+				
 			}else {
 				printHeading("Vous n'avez pas assez de pièces d'or");
 				toContinue();
@@ -414,7 +414,7 @@ public class GameLoop {
 				enemy.getDamage(damage);
 				clearConsole();
 				printHeading("COMBAT");
-				System.out.println("vous avez innfligé" + " " + damage + " " + " " + " points de dégât  à l'ennemie" + enemy.getCharacterName() + ".");
+				System.out.println("vous avez innfligé" + " " + damage + " " + " " + " points de dégât  à l'ennemie" + " " + enemy.getCharacterName() + ".");
 				printSeparator(15);
 				System.out.println("L'ennemie" + " " + enemy.getCharacterName() + " " +  "vous infligé" + " " + damageTook + " " + "points de dégât");
 				toContinue();
