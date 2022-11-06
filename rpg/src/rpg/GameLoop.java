@@ -8,7 +8,8 @@ public class GameLoop {
 	
 	private static boolean isRunning;
 	
-	private static String[] encounters = {"Combat", "Combat", "Combat", "Repos", "Repos"};
+	
+	private static String[] encounters = {"Combat", "Combat", "Combat","Rien", "Rien", "Magasin", "Magasin", "Repos", "Repos"};
 	
 	private static String[] enemies = {"Ogre", "Ogre", "demon", "demon", "sorcier malefique"};
 	
@@ -50,6 +51,103 @@ public class GameLoop {
 		scanner.next();
 	}
 	
+	public static void renderMap() {
+		Scanner in = new Scanner(System.in);
+		int x = player.getPlayerXposition();
+		int y = player.getPlayerYposition();
+		boolean mapRendering = true;
+		
+        
+        while (mapRendering) {
+        	clearConsole();
+        	System.out.println("Carte : \"O\" = position du joueur");
+        	printSeparator(20);
+        	printHeading(places[place]);
+                for (int i = 0; i < 5; i++) {
+                        for (int j = 0; j < 5; j++) {
+                                if (i == y & j == x) {
+                                        System.out.print("O");
+                                } else {
+                                        System.out.print("X");
+                                }
+                        }
+                        System.out.println("");
+
+                }
+
+                System.out.println("dans quelle direction voulez-vous aller ? l: Gauche, r: Droite, u: Avant, d: Arrière");
+                printSeparator(30);
+                System.out.println("taper q pour revenir au menu");
+                printSeparator(30);
+                String move = in.next();
+                if (move.equals("q")) {
+                	mapRendering = false;
+                }
+                if (move.equals("u")) { //movement commands
+                        player.setNegativePlayerYPosition();
+                        y--;
+                        if(player.getPlayerXposition() != 4 && player.getPlayerYposition() != 0) {
+                        	randomEncounter();
+                        }else if(player.getPlayerXposition() == 4 && player.getPlayerYposition() == 0) {
+                        	Story.printSecondActOutro();
+                        	finalBattle();
+                        }
+                        else {
+                        	randomEncounter();
+                        }
+                        
+                }
+                if (move.equals("d")) {
+      
+                       player.setPositivePlayerYPosition();
+                        y++;
+                        if(player.getPlayerXposition() != 4 && player.getPlayerYposition() != 0) {
+                        	randomEncounter();
+                        }else if(player.getPlayerXposition() == 4 && player.getPlayerYposition() == 0) {
+                        	Story.printSecondActOutro();
+                        	finalBattle();
+                        }
+                        
+                        else {
+                        	randomEncounter();
+                        }
+                }
+                if (move.equals("l")) {
+                	player.setNegativePlayerXPosition();
+                        x--;
+                        if(player.getPlayerXposition() != 4 && player.getPlayerYposition() != 0) {
+                        	randomEncounter();
+                        }else if(player.getPlayerXposition() == 4 && player.getPlayerYposition() == 0) {
+                        	Story.printSecondActOutro();
+                        	finalBattle();
+                        }
+                        else {
+                        	randomEncounter();
+                        }
+                }
+                if (move.equals("r")) {
+                	player.setPositivePlayerXPosition();
+                	   x++;
+                	   if(player.getPlayerXposition() != 4 && player.getPlayerYposition() != 0) {
+                       	randomEncounter();
+                       }else if(player.getPlayerXposition() == 4 && player.getPlayerYposition() == 0) {
+                    	Story.printSecondActOutro();
+                       	finalBattle();
+                       }
+                       else {
+                       	randomEncounter();
+                       }
+                       
+                }else {
+                	System.out.println("entrez une direction valide");
+                	
+                }
+
+        }
+
+	}
+	
+	
 	public static void startGame() {
 		boolean nameSet = false;
 		String name;
@@ -57,9 +155,9 @@ public class GameLoop {
 		printSeparator(40);
 		printSeparator(30);
 		System.out.println("AGE OF DARKNESS");
-		System.out.println("TEXT RPG BY YAMIL ISSA");
 		printSeparator(30);
 		printSeparator(40);
+		
 		toContinue();
 		
 		do {
@@ -89,59 +187,7 @@ public class GameLoop {
 		gameLoop();
 	}
 	
-	public static void checkAct() {
-		if(player.getCharacterXp() >= 5 && act == 1 ) {
-			act = 2;
-			place = 1;
-			Story.printFirstActOutro();
-			
-			Story.printSecondActIntro();
-			enemies[0] = "Mercenaire";
-			enemies[1] = "Goblin";
-			enemies[2] = "loups";
-			enemies[3] = "commandant de l'armée du nameless Kig";
-			enemies[4] = "mysterieux etranger";
-			
-			encounters[0] = "Combat";
-		    encounters[1] = "Combat";
-		    encounters[2] = "Combat";
-		    encounters[3] = "Repos";
-		    encounters[4] = "Magasin";
-			
-		}else if(player.getCharacterXp() >= 10 && act == 2 ) {
-			act = 3;
-			place = 2;
-			Story.printSecondActOutro();
-			
-			Story.printThirdActIntro();
-			
-			enemies[0] = "Mercenaire";
-			enemies[1] = "Mercenaire";
-			enemies[2] = "commandant de l'armée du nameless Kig";
-			enemies[3] = "commandant de l'armée du nameless Kig";
-			enemies[4] = "commandant de l'armée du nameless Kig";
-			
-			encounters[0] = "Combat";
-		    encounters[1] = "Combat";
-		    encounters[2] = "Combat";
-		    encounters[3] = "Repos";
-		    encounters[4] = "Magasin";
-		    player.chooseTrait();
-		    player.setCharacterHp(player.getCharacterMaxHp());
-			
-		}else if(player.getCharacterXp() >= 20 && act == 3) {
-			act = 4;
-			place = 3;
-			Story.printThirdActOutro();
-			
-			Story.printFourthActIntro();
-			player.chooseTrait();
-		    player.setCharacterHp(player.getCharacterMaxHp());
-		    
-		    finalBattle();
-			
-		}
-	}
+	
 	
 	public static void randomEncounter() {
 		int encounter = (int)(Math.random()* encounters.length);
@@ -151,36 +197,17 @@ public class GameLoop {
 		}else if(encounters[encounter].equals("Repos")){
 			takeRest();
 			
-		}else {
+		}else if(encounters[encounter].equals("Rien")){
+			
+			
+		}else if(encounters[encounter].equals("Magasin")) {
 			shop();
 		}
 	}
 	public static void continueJourney() {
-		checkAct();
-		if(act != 4) {
-			GameLoop.clearConsole();
-			GameLoop.printHeading("dans quelle direction voulez-vous aller ?");
-			System.out.println("(1) Avant");
-			System.out.println("(2) Arière");
-			System.out.println("(3) Gauche");
-			System.out.println("(4) Droite");
-			int input = GameLoop.readInt("-> ", 4);
-			GameLoop.clearConsole();
-			if(input == 1) {
-				randomEncounter();
-				
-			}else if(input == 2) {
-				randomEncounter();
-				
-			}else if(input == 3) {
-				randomEncounter();
-				
-			}else if(input == 4) {
-				randomEncounter();
-				
-			}
-			
-		}
+		
+			clearConsole();
+			renderMap();
 		
 	}
 	
@@ -189,10 +216,13 @@ public class GameLoop {
 		printHeading("INFO PERSONNAGE");
 		System.out.println(player.name + "\tHP: " + player.getCharacterHp() + "/" + player.getCharacterMaxHp());
 		printSeparator(20);
-		System.out.println("XP: " + player.getCharacterXp() + "\tGold:" + player.getGold());
+		System.out.println("XP: " + player.getCharacterXp() + "\tPièces d'or:" + player.getGold());
 		printSeparator(20);
 		
 		System.out.println("nombre de potions:" + " " + player.getPots());
+		printSeparator(20);
+		
+		System.out.println("classe:" + " " + player.getChosenClass());
 		printSeparator(20);
 		
 		if(player.getNumAttackUpgrades() > 0) {
@@ -206,6 +236,7 @@ public class GameLoop {
 		printHeading("Armes");
 		printSeparator(30);
 	    player.renderWeaponBought();
+	    printSeparator(30);
 		toContinue();
 	}
 	
@@ -218,8 +249,8 @@ public class GameLoop {
 		int numWeapon = (int) (Math.random()*3);
 		System.out.println("- Potion: " + " " + price + " " + "pièces d'or");
 		printSeparator(20);
-		System.out.println("- Arme: " + player.getWeapon(numWeapon) + " " + price2 + " " + "pièces d'or");
-		
+		System.out.println("- Arme: " + player.getWeapon(numWeapon).getWeaponName() + " " + price2 + " " + "pièces d'or");
+		printSeparator(20);
 		
 		System.out.println("Voulez-vous acheter une potion ?\n(1) Oui\n(2) Non.");
 		int input = readInt("-> ", 2);
@@ -241,7 +272,7 @@ public class GameLoop {
 		if(input2 == 1) {
 			clearConsole();
 			if(player.getGold() >= price2) {
-				printHeading("Vous avez acheté l'arme" + " " + player.getWeapon(numWeapon) + " " + "pour" + " " + price2 + " " + "pièces d'or" );
+				printHeading("Vous avez acheté l'arme" + " " + player.getWeapon(numWeapon).getWeaponName() + " " + "pour" + " " + price2 + " " + "pièces d'or" );
 				player.buyWeapon(player.getWeapon(numWeapon));
 				player.buy(price2);
 			}else {
@@ -365,8 +396,9 @@ public class GameLoop {
 					}else {
 						printHeading("vous n'avez pas reussi à vous enfuir ");
 						int damageTook = enemy.attack();
+						player.getDamage(damageTook);
 						System.out.println("Vous avez pris" + " " + damageTook + " " + "point de dégât ");
-						toContinue();
+						toContinue();	
 						if(player.getCharacterHp() <= 0) {
 							playerDied();
 						}
@@ -381,7 +413,6 @@ public class GameLoop {
 	
 	public static void printMenu() {
 		clearConsole();
-		printHeading(places[place]);
 		System.out.println("choisissez une action");
 		printSeparator(20);
 		System.out.println("(1) Continuer");
@@ -390,9 +421,11 @@ public class GameLoop {
 	}
 	
 	public static void finalBattle() {
-		battle(new Enemy("THE NAMELESS KING", 250));
-		Story.printEnd(player);
-		isRunning = false;
+		battle(new Enemy("THE NAMELESS KING", 50));
+			Story.printEnd(player);
+			isRunning = false;
+		
+		
 	}
 	public static void playerDied() {
 		clearConsole();

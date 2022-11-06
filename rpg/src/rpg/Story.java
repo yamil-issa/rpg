@@ -15,87 +15,45 @@ public class Story {
 	public static void printFirstActIntro() {
 		GameLoop.clearConsole();
 		GameLoop.printSeparator(30);
-		System.out.println("ACTE I - INTRO");
-		GameLoop.printSeparator(30);
 		System.out.println("Votre quête de vengeance debute, vous traversez la foret afin de sortir du village ");
-		System.out.println("Vfsfjpgjehmrhmrmkmblabbla ");
+		GameLoop.printSeparator(30);
 		GameLoop.toContinue();
 	}
 	public static void printFirstActOutro() {
 		GameLoop.clearConsole();
 		GameLoop.printSeparator(30);
-		System.out.println("ACTE I - OUTRO");
+		System.out.println("Vous sortez du village, vous vous dirigez à present vers le chateau du namless King ");
 		GameLoop.printSeparator(30);
-		System.out.println("Votre quête de vengeance debute, vous traversez la foret afin de sortir du village ");
-		System.out.println("jsofpokfpkpkpzkpzkpzkpz");
-		System.out.println("fkzpfkpzkgpzkgpkgkgpkp");
 		GameLoop.toContinue();
 	}
 	public static void printSecondActIntro() {
 		GameLoop.clearConsole();
 		GameLoop.printSeparator(30);
-		System.out.println("ACTE II - INTRO");
+		System.out.println("vous arriver à l'acdemie d'Aria lucaria ");
 		GameLoop.printSeparator(30);
-		System.out.println("Votre quête de vengeance debute, vous traversez la foret afin de sortir du village ");
-		System.out.println("Vfsfjpgjehmrhmrmkmblabbla ");
 		GameLoop.toContinue();
 	}
 	public static void printSecondActOutro() {
 		GameLoop.clearConsole();
 		GameLoop.printSeparator(30);
-		System.out.println("ACTE II - OUTRO");
+		System.out.println("Vous êtes arrivé devant le chateau du nameless King");
 		GameLoop.printSeparator(30);
-		System.out.println("Votre quête de vengeance debute, vous traversez la foret afin de sortir du village ");
-		System.out.println("jsofpokfpkpkpzkpzkpzkpz");
-		System.out.println("fkzpfkpzkgpzkgpkgkgpkp");
 		GameLoop.toContinue();
 	}
-	public static void printThirdActIntro() {
-		GameLoop.clearConsole();
-		GameLoop.printSeparator(30);
-		System.out.println("ACTE III - INTRO");
-		GameLoop.printSeparator(30);
-		System.out.println("Votre quête de vengeance debute, vous traversez la foret afin de sortir du village ");
-		System.out.println("Vfsfjpgjehmrhmrmkmblabbla ");
-		GameLoop.toContinue();
-	}
-	public static void printThirdActOutro() {
-		GameLoop.clearConsole();
-		GameLoop.printSeparator(30);
-		System.out.println("ACTE III - OUTRO");
-		GameLoop.printSeparator(30);
-		System.out.println("Votre quête de vengeance debute, vous traversez la foret afin de sortir du village ");
-		System.out.println("jsofpokfpkpkpzkpzkpzkpz");
-		System.out.println("fkzpfkpzkgpzkgpkgkgpkp");
-		GameLoop.toContinue();
-	}
-	public static void printFourthActIntro() {
-		GameLoop.clearConsole();
-		GameLoop.printSeparator(30);
-		System.out.println("ACTE IV - INTRO");
-		GameLoop.printSeparator(30);
-		System.out.println("Votre quête de vengeance debute, vous traversez la foret afin de sortir du village ");
-		System.out.println("Vfsfjpgjehmrhmrmkmblabbla ");
-		GameLoop.toContinue();
-	}
-	public static void printFourthActOutro() {
-		GameLoop.clearConsole();
-		GameLoop.printSeparator(30);
-		System.out.println("ACTE IV - OUTRO");
-		GameLoop.printSeparator(30);
-		System.out.println("Votre quête de vengeance debute, vous traversez la foret afin de sortir du village ");
-		System.out.println("jsofpokfpkpkpzkpzkpzkpz");
-		System.out.println("fkzpfkpzkgpzkgpkgkgpkp");
-		GameLoop.toContinue();
-	}
+	
 	public static void printEnd(Player player) {
-		GameLoop.clearConsole();
-		GameLoop.printSeparator(30);
-		System.out.println("Bravo," + player.getCharacterName() + "! Vous avez reussi à vaincre le nameless King, le mal ne rongera plus le royaume, vous pouvez desormais reposer en paix");
-		GameLoop.printSeparator(30);
-		System.out.println("Jeu developpé dans le cadre de la licence pro projet web et mobile");
-		System.out.println("Merci d'avoir joué");
-		GameLoop.toContinue();
+		if(player.getCharacterHp() <= 0) {
+			GameLoop.playerDied();
+		}else {
+			GameLoop.clearConsole();
+			GameLoop.printSeparator(30);
+			System.out.println("Bravo," + player.getCharacterName() + "! Vous avez reussi à vaincre le nameless King, le mal ne rongera plus le royaume, vous pouvez desormais reposer en paix");
+			GameLoop.printSeparator(30);
+			System.out.println("Jeu developpé dans le cadre de la licence pro projet web et mobile");
+			System.out.println("Merci d'avoir joué");
+			GameLoop.toContinue();
+		}
+		
 	}
 	
 
