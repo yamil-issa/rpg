@@ -13,8 +13,7 @@ public class GameLoop {
 	
 	private static String[] enemies = {"Ogre", "Ogre", "demon", "demon", "sorcier malefique"};
 	
-	private static int place = 0, act = 1;
-	private static String[] places = {"cité d'Anor lando","montagne enneigé", "academie aria lucaria", "forêt sombre", "le chateau", "la salle du trône"};
+	
 	
 	public static int readInt(String prompt, int userChoices) {
 		int input;
@@ -62,7 +61,6 @@ public class GameLoop {
         	clearConsole();
         	System.out.println("Carte : \"O\" = position du joueur");
         	printSeparator(20);
-        	printHeading(places[place]);
                 for (int i = 0; i < 5; i++) {
                         for (int j = 0; j < 5; j++) {
                                 if (i == y & j == x) {
@@ -87,13 +85,32 @@ public class GameLoop {
                         player.setNegativePlayerYPosition();
                         y--;
                         if(player.getPlayerXposition() != 4 && player.getPlayerYposition() != 0) {
-                        	randomEncounter();
+                        	if(player.getPlayerXposition() == 3 && player.getPlayerYposition() == 1) {
+                        		Story.printSecondActIntro();
+                        		randomEncounter();
+                        		
+                        	}else if(player.getPlayerXposition() == 1 && player.getPlayerYposition() == 0) {
+                        		Story.printFirstActOutro();
+                        		randomEncounter();
+                        	}else {
+                           		randomEncounter();
+                           	}
+                        	
                         }else if(player.getPlayerXposition() == 4 && player.getPlayerYposition() == 0) {
                         	Story.printSecondActOutro();
                         	finalBattle();
                         }
                         else {
-                        	randomEncounter();
+                        	if(player.getPlayerXposition() == 3 && player.getPlayerYposition() == 1) {
+                        		Story.printSecondActIntro();
+                        		randomEncounter();
+                        		
+                        	}else if(player.getPlayerXposition() == 1 && player.getPlayerYposition() == 0) {
+                        		Story.printFirstActOutro();
+                        		randomEncounter();
+                        	}else {
+                           		randomEncounter();
+                           	}
                         }
                         
                 }
@@ -102,40 +119,94 @@ public class GameLoop {
                        player.setPositivePlayerYPosition();
                         y++;
                         if(player.getPlayerXposition() != 4 && player.getPlayerYposition() != 0) {
-                        	randomEncounter();
+                        	if(player.getPlayerXposition() == 3 && player.getPlayerYposition() == 1) {
+                        		Story.printSecondActIntro();
+                        		randomEncounter();
+                        		
+                        	}else if(player.getPlayerXposition() == 1 && player.getPlayerYposition() == 0) {
+                        		Story.printFirstActOutro();
+                        		randomEncounter();
+                        	}else {
+                           		randomEncounter();
+                           	}
                         }else if(player.getPlayerXposition() == 4 && player.getPlayerYposition() == 0) {
                         	Story.printSecondActOutro();
                         	finalBattle();
                         }
                         
                         else {
-                        	randomEncounter();
+                        	if(player.getPlayerXposition() == 3 && player.getPlayerYposition() == 1) {
+                        		Story.printSecondActIntro();
+                        		randomEncounter();
+                        		
+                        	}else if(player.getPlayerXposition() == 1 && player.getPlayerYposition() == 0) {
+                        		Story.printFirstActOutro();
+                        		randomEncounter();
+                        	}else {
+                           		randomEncounter();
+                           	}
                         }
                 }
                 if (move.equals("l")) {
                 	player.setNegativePlayerXPosition();
                         x--;
                         if(player.getPlayerXposition() != 4 && player.getPlayerYposition() != 0) {
-                        	randomEncounter();
+                        	if(player.getPlayerXposition() == 3 && player.getPlayerYposition() == 1) {
+                        		Story.printSecondActIntro();
+                        		randomEncounter();
+                        		
+                        	}else if(player.getPlayerXposition() == 1 && player.getPlayerYposition() == 0) {
+                        		Story.printFirstActOutro();
+                        		randomEncounter();
+                        	}else {
+                           		randomEncounter();
+                           	}
                         }else if(player.getPlayerXposition() == 4 && player.getPlayerYposition() == 0) {
                         	Story.printSecondActOutro();
                         	finalBattle();
                         }
                         else {
-                        	randomEncounter();
+                        	if(player.getPlayerXposition() == 3 && player.getPlayerYposition() == 1) {
+                        		Story.printSecondActIntro();
+                        		randomEncounter();
+                        		
+                        	}else if(player.getPlayerXposition() == 1 && player.getPlayerYposition() == 0) {
+                        		Story.printFirstActOutro();
+                        		randomEncounter();
+                        	}else {
+                           		randomEncounter();
+                           	}
                         }
                 }
                 if (move.equals("r")) {
                 	player.setPositivePlayerXPosition();
                 	   x++;
                 	   if(player.getPlayerXposition() != 4 && player.getPlayerYposition() != 0) {
-                       	randomEncounter();
+                		   if(player.getPlayerXposition() == 3 && player.getPlayerYposition() == 1) {
+                       		Story.printSecondActIntro();
+                       		randomEncounter();
+                       		
+                       	}else if(player.getPlayerXposition() == 1 && player.getPlayerYposition() == 0) {
+                    		Story.printFirstActOutro();
+                    		randomEncounter();
+                    	}else {
+                       		randomEncounter();
+                       	}
                        }else if(player.getPlayerXposition() == 4 && player.getPlayerYposition() == 0) {
                     	Story.printSecondActOutro();
                        	finalBattle();
                        }
                        else {
-                       	randomEncounter();
+                    	   if(player.getPlayerXposition() == 3 && player.getPlayerYposition() == 1) {
+                       		Story.printSecondActIntro();
+                       		randomEncounter();
+                       		
+                       	}else if(player.getPlayerXposition() == 1&& player.getPlayerYposition() == 0) {
+                    		Story.printFirstActOutro();
+                    		randomEncounter();
+                    	}else {
+                       		randomEncounter();
+                       	}
                        }
                        
                 }else {
@@ -216,7 +287,7 @@ public class GameLoop {
 		printHeading("INFO PERSONNAGE");
 		System.out.println(player.name + "\tHP: " + player.getCharacterHp() + "/" + player.getCharacterMaxHp());
 		printSeparator(20);
-		System.out.println("XP: " + player.getCharacterXp() + "\tPièces d'or:" + player.getGold());
+		System.out.println("XP: " + player.getCharacterXp() + "\tPièces d'or: " + player.getGold());
 		printSeparator(20);
 		
 		System.out.println("nombre de potions:" + " " + player.getPots());
@@ -387,7 +458,7 @@ public class GameLoop {
 				
 			}else {
 				clearConsole();
-				if(act != 4) {
+				if(player.getPlayerXposition() != 4 && player.getPlayerYposition() != 0) {
 					//chance 45%
 					if(Math.random()*10 + 1 <= 4.5) {
 						printHeading("Vous vous êtes enfuis ");
@@ -403,7 +474,7 @@ public class GameLoop {
 							playerDied();
 						}
 					}
-				}else {
+				}else if (player.getPlayerXposition() == 4 && player.getPlayerYposition() == 0) {
 					printHeading("Vous ne pouvez pas fuir ce combat");
 					toContinue();
 				}
@@ -421,9 +492,13 @@ public class GameLoop {
 	}
 	
 	public static void finalBattle() {
-		battle(new Enemy("THE NAMELESS KING", 50));
-			Story.printEnd(player);
-			isRunning = false;
+		player.setCharacterHp(player.getCharacterMaxHp());
+		clearConsole();
+		printHeading("votre santé a été réstauré");
+		toContinue();
+		battle(new Enemy("THE NAMELESS KING", player.getCharacterXp()));
+		Story.printEnd(player);
+		isRunning = false;
 		
 		
 	}

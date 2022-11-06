@@ -29,7 +29,7 @@ public class Story {
 	public static void printSecondActIntro() {
 		GameLoop.clearConsole();
 		GameLoop.printSeparator(30);
-		System.out.println("vous arriver à l'acdemie d'Aria lucaria ");
+		System.out.println("vous arrivez à l'acdemie d'Aria lucaria ");
 		GameLoop.printSeparator(30);
 		GameLoop.toContinue();
 	}
