@@ -129,15 +129,13 @@ public class Player extends Character {
 		
 	}
 	
-	/*public void equipWeapon(int indexOfWeapon) {
-		System.out.println("Voulez-vous equiper une arme ?\n(1) Oui\n(2) Non.");
-		int input = GameLoop.readInt("-> ", 2);
-		if(input == 1) {
+	public void equipWeapon(int indexOfWeapon) {
+		
 			this.numAttackUpgrades += this.playerWeaponsBought.get(indexOfWeapon).getWeaponDamagePoints();
 			
-		}
+		
 	}
-	*/
+	
 	
 	public void chooseTrait() {
 		GameLoop.clearConsole();

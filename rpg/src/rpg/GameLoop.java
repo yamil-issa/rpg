@@ -346,6 +346,7 @@ public class GameLoop {
 				printHeading("Vous avez acheté l'arme" + " " + player.getWeapon(numWeapon).getWeaponName() + " " + "pour" + " " + price2 + " " + "pièces d'or" );
 				player.buyWeapon(player.getWeapon(numWeapon));
 				player.buy(price2);
+				player.equipWeapon(numWeapon);
 			}else {
 				printHeading("Vous n'avez pas assez de pièces d'or");
 				toContinue();
