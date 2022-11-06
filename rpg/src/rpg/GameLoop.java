@@ -261,7 +261,7 @@ public class GameLoop {
 	
 	
 	public static void randomEncounter() {
-		int encounter = (int)(Math.random()* encounters.length);
+		int encounter = (int)(Math.random()* (encounters.length - 1));
 		if(encounters[encounter].equals("Combat")){
 			randomBattle();
 			
@@ -296,16 +296,8 @@ public class GameLoop {
 		System.out.println("classe:" + " " + player.getChosenClass());
 		printSeparator(20);
 		
-		if(player.getNumAttackUpgrades() > 0) {
-			System.out.println("capacités offensive " + player.getAttackUpgrades()[player.getNumAttackUpgrades() -1]);
-			printSeparator(20);
-		}
-		if(player.getNumDefUpgrades() > 0) {
-			System.out.println("capacités deffensive " + player.getDefUpgrades()[player.getNumDefUpgrades() - 1]);
-		}
-		printSeparator(30);
-		printHeading("Armes");
-		printSeparator(30);
+		printHeading("Armes:");
+		
 	    player.renderWeaponBought();
 	    printSeparator(30);
 		toContinue();
@@ -316,8 +308,8 @@ public class GameLoop {
 		clearConsole();
 		printHeading("vous rencontrez un mysterieux marchand");
 		int price = (int) (Math.random()* (10 + player.getPots() * 3) + 10 + player.getPots());
-		int price2 = (int) (Math.random()*10);
-		int numWeapon = (int) (Math.random()*3);
+		int price2 = (int) (Math.random()*(10 - 1));
+		int numWeapon = (int) (Math.random()*5);
 		System.out.println("- Potion: " + " " + price + " " + "pièces d'or");
 		printSeparator(20);
 		System.out.println("- Arme: " + player.getWeapon(numWeapon).getWeaponName() + " " + price2 + " " + "pièces d'or");
@@ -375,17 +367,17 @@ public class GameLoop {
 					
 				}
 				
+			}
+				
 			}else {
 				System.out.println("Vos points de vie sont dejà au maximum");
 				toContinue();
-				
-			}
 		}
 	}
 	//combat aléatoire
 	public static void randomBattle() {
 		clearConsole();
-		printHeading("vous croisez un ennemie");
+		printHeading("vous croisez un ennemi");
 		toContinue();
 		battle(new Enemy(enemies[(int)(Math.random()*enemies.length)], player.getCharacterXp()));
 	}

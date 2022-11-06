@@ -36,7 +36,6 @@ public class Player extends Character {
 		this.playerWeapons[3] = new Weapon("hallebarde", 3);
 		this.playerWeapons[4] = new Weapon("lance sacrée", 4);
 		this.playerWeapons[5] = new Weapon("lance sacrée", 4);
-		chooseTrait();
 		chooseClass();
 		
 	}
@@ -68,12 +67,12 @@ public class Player extends Character {
 	@Override
 	public int attack() {
 		
-		return (int) (Math.random()*(xp/4 + numAttackUpgrades*3 + 3) + xp/10 + numAttackUpgrades*2 + numDefUpgrades + 1);
+		return (int) (Math.random()*(xp/2 + numAttackUpgrades + 3));
 	}
 
 	@Override
 	public int defend() {
-		return (int) (Math.random()*(xp/4 + numDefUpgrades*3 + 3) + xp/10 + numDefUpgrades*2 + numAttackUpgrades + 1);
+		return (int) (Math.random()*(xp/4 + numDefUpgrades + 3));
 		
 	}
 	public int getNumAttackUpgrades() {
@@ -133,25 +132,6 @@ public class Player extends Character {
 		
 	}
 	
-	
-	public void chooseTrait() {
-		GameLoop.clearConsole();
-		GameLoop.printHeading("Choisissez une capacité :");
-		System.out.println("(1)" + attackUpgrades[numAttackUpgrades]);
-		System.out.println("(2)" + defUpgrades[numDefUpgrades]);
-		int input = GameLoop.readInt("->", 2);
-		
-		GameLoop.clearConsole();
-		if(input == 1) {
-			GameLoop.printHeading("vois avez choisi" + " " + attackUpgrades[numAttackUpgrades] + "!");
-			numAttackUpgrades++;
-			
-		}else {
-			GameLoop.printHeading("vous aves choisi" + " " + defUpgrades[numDefUpgrades] + "!" );
-			numDefUpgrades++;
-		}
-		
-	}
 	public void chooseClass() {
 		GameLoop.clearConsole();
 		GameLoop.printHeading("Choisissez une classe :");
