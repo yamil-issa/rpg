@@ -9,7 +9,7 @@ public class GameLoop {
 	private static boolean isRunning;
 	
 	
-	private static String[] encounters = {"Combat", "Combat", "Combat","Rien", "Rien", "Magasin", "Magasin", "Repos", "Repos"};
+	private static String[] encounters = {"Combat", "Combat", "Combat","Rien", "Rien", "Magasin", "Magasin","Combat", "Repos"};
 	
 	private static String[] enemies = {"Ogre", "Ogre", "demon", "demon", "sorcier malefique"};
 	
